@@ -1,0 +1,119 @@
+{
+  "ParseBills": {
+    "d": {
+      "success": 1,
+      "settings": "{\"regs\": \"setting_1|setting_2\", \"status\": \"1\"}",
+      "bills": [
+        {
+          "id": 473,
+          "name": "test",
+          "status": 1,
+          "docCount": 26,
+          "docs": [
+            {
+              "id": 256,
+              "url": "#",
+              "name": "doc1",
+              "isCopy": 0
+            },
+            {
+              "id": 234,
+              "url": "#",
+              "name": "doc2"
+            },
+            {
+              "id": 233,
+              "url": "#",
+              "name": "doc2"
+            }
+          ],
+          "customer": {
+            "id": 1,
+            "name": "User-1"
+          },
+          "delivs": "|1|2|3|"
+        },
+        {
+          "id": 474,
+          "name": "New 1",
+          "status": 1,
+          "docCount": 7,
+          "docs": [],
+          "delivs": "|1|2|"
+        },
+        {
+          "id": 475,
+          "name": "New 2",
+          "status": 1,
+          "docCount": 9
+        },
+        {
+          "id": 487,
+          "name": "test",
+          "status": 2,
+          "docCount": 4
+        },
+        {
+          "id": 517,
+          "name": "new110923",
+          "status": 1,
+          "docCount": 4
+        },
+        {
+          "id": 518,
+          "name": "new11092",
+          "status": 2,
+          "docCount": 2
+        },
+        {
+          "id": 519,
+          "name": "подготовка 1",
+          "status": 1,
+          "docCount": 10
+        },
+        {
+          "id": 520,
+          "name": "Пакет 1",
+          "status": 2,
+          "docCount": 12
+        },
+        {
+          "id": 605,
+          "name": "Зиппуоя",
+          "status": 1,
+          "docCount": 2
+        },
+        {
+          "id": 548,
+          "name": "МБ Пакет",
+          "status": 1,
+          "docCount": 5
+        },
+        {
+          "id": 549,
+          "name": "New folder 09.10",
+          "status": 1,
+          "docCount": 3
+        },
+        {
+          "id": 553,
+          "name": "qweqwe 123",
+          "status": 1,
+          "docCount": 3
+        },
+        {
+          "id": 554,
+          "name": "FIRST",
+          "status": 1,
+          "docCount": 2
+        },
+        {
+          "id": 558,
+          "name": "Вувв",
+          "status": 1,
+          "docCount": 2
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@import 'fonts.scss';
+
+* :after,
+* :before {
+  box-sizing: border-box;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  padding: 0;
+  background: unset;
+  border: unset;
+  cursor: pointer;
+}
+
+.none {
+  display: none;
+}
