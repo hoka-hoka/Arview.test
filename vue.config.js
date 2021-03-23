@@ -1,51 +1,54 @@
 // vue.config.js
-const webpack = require("webpack");
-const CopyPlugin = require("copy-webpack-plugin");
-const path = require("path");
+const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
+const path = require('path');
 
-const devMode = process.env.NODE_ENV !== "production";
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== 'production';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const plugins = [];
 if (!devMode) {
   plugins.push(
     new MiniCssExtractPlugin({
-      filename: "css/[name].css",
-      chunkFilename: "css/[id].css",
-    })
+      filename: 'css/[name].css',
+      chunkFilename: 'css/[id].css',
+    }),
   );
 }
 plugins.push(
   new webpack.ProvidePlugin({
-    $: "jquery/dist/jquery.min.js",
-    jQuery: "jquery/dist/jquery.min.js",
-    "window.jQuery": "jquery/dist/jquery.min.js",
-    "window.$": "jquery/dist/jquery.min.js",
-  })
-);
-plugins.push(
+    $: 'jquery/dist/jquery.min.js',
+    jQuery: 'jquery/dist/jquery.min.js',
+    'window.jQuery': 'jquery/dist/jquery.min.js',
+    'window.$': 'jquery/dist/jquery.min.js',
+  }),
   new CopyPlugin([
     {
-      from: path.resolve(__dirname, "src/assets/img"),
-      to: path.resolve(__dirname, "dist/img"),
+      from: path.resolve(__dirname, 'src/assets/img'),
+      to: path.resolve(__dirname, 'dist/img'),
     },
     {
-      from: path.resolve(__dirname, "src/assets/fonts"),
-      to: path.resolve(__dirname, "dist/fonts"),
+      from: path.resolve(__dirname, 'src/assets/fonts'),
+      to: path.resolve(__dirname, 'dist/fonts'),
     },
-  ])
+    {
+      from: path.resolve(__dirname, 'dll/vendor.bundle.js'),
+      to: path.resolve(__dirname, 'dist/js'),
+    },
+  ]),
 );
 
 module.exports = {
-  outputDir: "dist",
-  publicPath: process.env.NODE_ENV === "production" ? "" : "./", // Если используется многостраничный режим (pages), то не писать
-  assetsDir: "",
-  indexPath: "index.html", // по умолчанию index.html
+  outputDir: 'dist',
+  publicPath: process.env.NODE_ENV === 'production' ? '' : './', // Если используется многостраничный режим (pages), то не писать
+  assetsDir: '',
+  indexPath: 'index.html', // по умолчанию index.html
   pages: {
     index: {
-      entry: "src/index.jsx",
-      template: "public/index.pug",
-      chunks: ["chunk-vendors", "chunk-common", "index"],
+      entry: 'src/index.jsx',
+      template: 'public/index.pug',
+      chunks: ['chunk-vendors', 'chunk-common', 'index'],
+      vendor: 'dist/js/vendor.bundle.js',
     },
   },
 
@@ -54,12 +57,12 @@ module.exports = {
     module: {
       rules: [
         {
-          test: /\.js$|jsx/,
+          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              presets: ["@babel/preset-env"],
+              presets: ['@babel/preset-env'],
             },
           },
         },
@@ -68,10 +71,10 @@ module.exports = {
           exclude: /node_modules/,
           use: [
             devMode
-              ? { loader: "vue-style-loader" }
+              ? { loader: 'vue-style-loader' }
               : MiniCssExtractPlugin.loader,
             {
-              loader: "css-loader",
+              loader: 'css-loader',
               options: {
                 sourceMap: false,
                 importLoaders: 2,
@@ -79,19 +82,19 @@ module.exports = {
               },
             },
             {
-              loader: "postcss-loader",
+              loader: 'postcss-loader',
               options: {
                 sourceMap: false,
                 plugins: [],
               },
             },
             {
-              loader: "sass-loader",
+              loader: 'sass-loader',
               options: {
                 sourceMap: false,
                 prependData: '@import "scss/utils";',
                 sassOptions: {
-                  includePaths: [__dirname, "src"],
+                  includePaths: [__dirname, 'src'],
                 },
               },
             },
@@ -102,22 +105,30 @@ module.exports = {
   },
 
   chainWebpack: (config) => {
-    config.module.rules.delete("sass");
-    config.module.rules.delete("postcss");
-    config.module.rules.delete("less");
-    config.module.rules.delete("stylus");
-    config.module.rules.delete("scss");
+    config.module.rules.delete('sass');
+    config.module.rules.delete('postcss');
+    config.module.rules.delete('less');
+    config.module.rules.delete('stylus');
+    config.module.rules.delete('scss');
 
-    const svgRule = config.module.rule("svg");
+    const svgRule = config.module.rule('svg');
     svgRule.uses.clear();
     /* add config.module.rule('svg') */
     svgRule
       .test(/\.svg$/)
-      .use("url-loader")
-      .loader("url-loader")
+      .use('url-loader')
+      .loader('url-loader')
       .options({
         limit: 4096,
       });
+
+    /* reference to DLL manifest */
+    config.plugin('vendorDll').use(webpack.DllReferencePlugin, [
+      {
+        context: __dirname,
+        manifest: require('./dll/vendor-manifest.json'),
+      },
+    ]);
   },
 
   devServer: {
