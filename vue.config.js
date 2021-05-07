@@ -6,23 +6,16 @@ const path = require('path');
 const devMode = process.env.NODE_ENV !== 'production';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const plugins = [];
-if (!devMode) {
-  plugins.push(
-    new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
-      chunkFilename: 'css/[id].css',
-    }),
-  );
-}
-plugins.push(
-  new webpack.ProvidePlugin({
-    $: 'jquery/dist/jquery.min.js',
-    jQuery: 'jquery/dist/jquery.min.js',
-    'window.jQuery': 'jquery/dist/jquery.min.js',
-    'window.$': 'jquery/dist/jquery.min.js',
-  }),
-  new CopyPlugin([
+const setMiniCssExtractPlugin = () => {
+  const rezult = new MiniCssExtractPlugin({
+    filename: 'css/[name].css',
+    chunkFilename: 'css/[id].css',
+  });
+  return rezult;
+};
+
+const setCopyPlugin = () => {
+  const rezult = new CopyPlugin([
     {
       from: path.resolve(__dirname, 'src/assets/img'),
       to: path.resolve(__dirname, 'dist/img'),
@@ -31,12 +24,28 @@ plugins.push(
       from: path.resolve(__dirname, 'src/assets/fonts'),
       to: path.resolve(__dirname, 'dist/fonts'),
     },
-    {
+  ]);
+  if (!devMode) {
+    rezult.patterns.push({
       from: path.resolve(__dirname, 'dll/vendor.bundle.js'),
       to: path.resolve(__dirname, 'dist/js'),
-    },
-  ]),
-);
+    });
+  }
+  return rezult;
+};
+
+const setProvidePlugin = () => {
+  const rezult = new webpack.ProvidePlugin({
+    $: 'jquery/dist/jquery.min.js',
+    jQuery: 'jquery/dist/jquery.min.js',
+  });
+  return rezult;
+};
+
+const plugins = [setCopyPlugin(), setProvidePlugin()];
+if (!devMode) {
+  plugins.push(setMiniCssExtractPlugin());
+}
 
 module.exports = {
   outputDir: 'dist',
@@ -48,7 +57,6 @@ module.exports = {
       entry: 'src/index.jsx',
       template: 'public/index.pug',
       chunks: ['chunk-vendors', 'chunk-common', 'index'],
-      vendor: 'dist/js/vendor.bundle.js',
     },
   },
 
@@ -122,13 +130,27 @@ module.exports = {
         limit: 4096,
       });
 
+    /* clear config.module.rule('fonts') */
+    const font = config.module.rule('fonts');
+    font.uses.clear();
+    font
+      .test(/\.(woff2?|eot|ttf|otf)(\?.*)?$/i)
+      .use('file-loader')
+      .loader('file-loader')
+      .options({
+        publicPath: '../', // url(../fonts/...)
+        name: 'fonts/[name]/[name].[ext]',
+      });
+
     /* reference to DLL manifest */
-    config.plugin('vendorDll').use(webpack.DllReferencePlugin, [
-      {
-        context: __dirname,
-        manifest: require('./dll/vendor-manifest.json'),
-      },
-    ]);
+    if (!devMode) {
+      config.plugin('vendorDll').use(webpack.DllReferencePlugin, [
+        {
+          context: __dirname,
+          manifest: require('./dll/vendor-manifest.json'),
+        },
+      ]);
+    }
   },
 
   devServer: {
@@ -144,3 +166,13 @@ module.exports = {
   productionSourceMap: false,
   integrity: false,
 };
+
+// 1. Если есть изображения в html они не обрабатываются url-loader и file-loader -и.
+/* 2. minCssExtractPlugin - создаёт файлы стилей для каждой точки входа.
+Также он поддерживает модульное подключение стилей через import */
+/*
+  style-loader - создаёт узлы стилей из строк JS
+  css-loader - переводит css в commonJS
+  sass-loader - компилирует scss в css
+  url-loader - преобразует в base64.
+*/

@@ -36,6 +36,8 @@
         "mjs": "never"
       }
     ],
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "no-return-assign": 0, // выражения в return
+    "no-param-reassign": 0 // использование параметрафункции
   }
 }

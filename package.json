@@ -5,7 +5,7 @@
   "scripts": {
     "dll": "webpack --config vendor.webpack.config.js",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --no-clean"
+    "build": "npm run dll && vue-cli-service build"
   },
   "dependencies": {
     "react": "^17.0.1",
