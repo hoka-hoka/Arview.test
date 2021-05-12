@@ -1,0 +1,20 @@
+.header {
+  min-width: 100px;
+  padding: 10px;
+  border: 1px dashed gray;
+}
+
+.top,
+.bottom {
+  margin-bottom: 10px;
+}
+
+.top {
+  padding: 5px;
+  border: 2px dashed rgb(28, 16, 199);
+}
+
+.bottom {
+  padding: 5px;
+  border: 2px dashed rgb(0, 255, 128);
+}

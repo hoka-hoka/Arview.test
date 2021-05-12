@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
   mode: 'production',
   entry: {
-    vendor: ['react', 'react-dom', 'vue'],
+    vendor: ['react'],
   },
   output: {
     filename: 'vendor.bundle.js',

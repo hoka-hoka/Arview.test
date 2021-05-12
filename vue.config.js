@@ -87,6 +87,9 @@ module.exports = {
                 sourceMap: false,
                 importLoaders: 2,
                 url: true,
+                modules: {
+                  localIdentName: '[name]__[local]___[hash:base64:5]',
+                },
               },
             },
             {
