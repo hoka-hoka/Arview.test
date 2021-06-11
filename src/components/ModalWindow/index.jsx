@@ -17,6 +17,7 @@ const ModalWindow = ({
   const focusedElems = useRef([]);
 
   const addEventData = () => {
+    // setNewEventData((prevState) => ({ ...prevState }));
     updateState({ update: true })({ eventData: [...eventData, newEventData] });
   };
 
@@ -58,15 +59,6 @@ const ModalWindow = ({
   // };
 
   const saveEventData = () => {
-    // const { firstName, lastName } = fieldData;
-    // const isFilled = firstName && lastName;
-    // if (!isFilled) {
-    //   updateState({ update: false }).notice = {
-    //     ...{
-    //       error: true,
-    //       message: lang[langData.fillingError],
-    //     },
-    //   };
     updateState({ update: true })({ bubbling: true });
 
     switch (view) {

@@ -58,7 +58,11 @@ class Template extends Component {
                 <Calendar onClickDay={this.showEvents} value={new Date()} />
               </div>
               <div className="widget__events">
-                <Events selectedDate={selectedDate} eventData={eventData} />
+                <Events
+                  selectedDate={selectedDate}
+                  eventData={eventData}
+                  updateState={this.updateState}
+                />
               </div>
             </div>
 
@@ -75,7 +79,7 @@ class Template extends Component {
             view={view}
             updateState={this.updateState}
             render={(callback) => (
-              <CreateEvent callback={callback} selectedDate={selectedDate} />
+              <CreateEvent selectedDate={selectedDate} callback={callback} />
             )}
           />
         )}

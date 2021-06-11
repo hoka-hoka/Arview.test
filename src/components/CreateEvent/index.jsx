@@ -4,7 +4,6 @@ import { lang, langData, dropList } from '../../constants';
 
 const CreateEvent = ({ selectedDate, callback }) => {
   const [type, setType] = useState();
-  // const [fieldName, setFieldName] = useState();
   const [data, setData] = useState({});
 
   const changeEventType = (typeIndex) => {
