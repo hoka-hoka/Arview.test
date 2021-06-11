@@ -17,6 +17,7 @@ class Template extends Component {
       view: viewMode.main,
       eventData: [],
       selectedDate: new Date(),
+      currentEvent: {},
     };
   }
 
@@ -48,7 +49,7 @@ class Template extends Component {
   };
 
   render() {
-    const { eventData, selectedDate, view } = this.state;
+    const { eventData, selectedDate, view, currentEvent } = this.state;
     return (
       <div className="widget">
         {view == viewMode.main && (
@@ -79,7 +80,11 @@ class Template extends Component {
             view={view}
             updateState={this.updateState}
             render={(callback) => (
-              <CreateEvent selectedDate={selectedDate} callback={callback} />
+              <CreateEvent
+                selectedDate={selectedDate}
+                currentEvent={currentEvent}
+                callback={callback}
+              />
             )}
           />
         )}

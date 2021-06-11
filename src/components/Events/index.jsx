@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useMemo } from 'react';
-import { lang, langData, dropList } from '../../constants';
+import { lang, langData, dropList, viewMode } from '../../constants';
 
 const Events = ({ selectedDate, eventData, updateState }) => {
   const [events, setEvents] = useState([]);
@@ -17,12 +17,36 @@ const Events = ({ selectedDate, eventData, updateState }) => {
     return found || [];
   }, [selectedDate, eventData]);
 
-  const handlerCLick = () => {};
+  const addEvent = (index) => {
+    updateState({ update: true })({
+      view: viewMode.add,
+      currentEvent: { index: index, obj: eventData[index] },
+    });
+  };
 
   const delEvent = (index) => {
     const newEventDate = eventData.filter((_, i) => i != index);
     updateState({ update: true })({ eventData: newEventDate });
   };
+
+  const buttons = (index) => (
+    <>
+      <button
+        className="events__edit"
+        type="button"
+        onClick={() => addEvent(index)}
+      >
+        Edit
+      </button>
+      <button
+        className="events__del"
+        type="button"
+        onClick={() => delEvent(index)}
+      >
+        Del
+      </button>
+    </>
+  );
 
   return (
     <div className="events">
@@ -30,25 +54,21 @@ const Events = ({ selectedDate, eventData, updateState }) => {
         <Fragment key={index}>
           {dropList.names[event.type] == lang[langData.holiday] && (
             <>
-              <div className="events__holiday">
-                <div className="events__type">{event.name}</div>
-                <div className="events__type">{event.price}</div>
-                <button
-                  className="events__edit"
-                  type="button"
-                  onClick={handlerCLick}
-                >
-                  Edit
-                </button>
-                <button
-                  className="events__del"
-                  type="button"
-                  onClick={() => delEvent(index)}
-                >
-                  Del
-                </button>
+              <div className="events__cont">
+                <div className="events__name">{event.name}</div>
+                <div className="events__price">Бюджет: {event.price}</div>
               </div>
+              {buttons(index)}
             </>
+          )}
+
+          {dropList.names[event.type] == lang[langData.events] && (
+            <div className="events__cont">
+              <div className="events__name">{event.name}</div>
+              <div className="events__type">Адрес: {event.address}</div>
+              <div className="events__type">Время: {event.time}</div>
+              {buttons(index)}
+            </div>
           )}
         </Fragment>
       ))}

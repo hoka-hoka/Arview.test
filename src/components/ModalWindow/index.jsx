@@ -74,7 +74,10 @@ const ModalWindow = ({
   };
 
   const comeBack = () => {
-    updateState({ update: true })({ view: viewMode.main });
+    updateState({ update: true })({
+      view: viewMode.main,
+      currentEvent: { index: undefined, obj: undefined },
+    });
   };
 
   const defFocusPosition = () => {

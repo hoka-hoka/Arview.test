@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import DropList from '../../common/DropList';
 import { lang, langData, dropList } from '../../constants';
 
-const CreateEvent = ({ selectedDate, callback }) => {
+const CreateEvent = ({ selectedDate, currentEvent, callback }) => {
   const [type, setType] = useState();
   const [data, setData] = useState({});
 
   const changeEventType = (typeIndex) => {
     setType(typeIndex);
-    setData({ name: data.name, type: typeIndex });
+    setData({ name: data.name, type: typeIndex, date: selectedDate });
   };
 
   const rememberData = (val, name) => {
@@ -24,6 +24,16 @@ const CreateEvent = ({ selectedDate, callback }) => {
     callback(data);
   }, [data, type]);
 
+  useEffect(() => {
+    if (!currentEvent?.obj) {
+      return;
+    }
+    const { obj } = currentEvent;
+    setData({
+      ...obj,
+    });
+  }, [currentEvent]);
+
   return (
     <div className="event">
       <div className="event__name">
@@ -33,6 +43,7 @@ const CreateEvent = ({ selectedDate, callback }) => {
           type="text"
           name=""
           id="name"
+          value={data.name || ''}
         />
       </div>
       <div className="event__type">
@@ -48,10 +59,10 @@ const CreateEvent = ({ selectedDate, callback }) => {
             <div className="event__price">
               <label htmlFor="price">{lang[langData.money]}</label>
               <input
+                id="price"
+                value={data.price || ''}
                 type="number"
                 onChange={(event) => rememberData(event.target.value, 'price')}
-                name=""
-                id="price"
               />
             </div>
           </>
@@ -62,19 +73,22 @@ const CreateEvent = ({ selectedDate, callback }) => {
             <div className="event__go">
               <label htmlFor="go">{lang[langData.go]}</label>
               <input
-                onChange={(event) => rememberData(event.target.value, 'go')}
-                type="text"
-                name=""
                 id="go"
+                value={data.address || ''}
+                type="text"
+                onChange={(event) =>
+                  rememberData(event.target.value, 'address')
+                }
               />
             </div>
             <div className="event__time">
               <label htmlFor="time">{lang[langData.time]}</label>
               <input
-                onChange={(event) => rememberData(event.target.value, 'time')}
+                id="time"
+                value={data.time || ''}
                 type="text"
                 name=""
-                id="time"
+                onChange={(event) => rememberData(event.target.value, 'time')}
               />
             </div>
           </>
