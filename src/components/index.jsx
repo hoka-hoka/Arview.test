@@ -78,6 +78,7 @@ class Template extends Component {
             title={`${lang[langData.add]} ${lang[langData.event]}`}
             eventData={eventData}
             view={view}
+            currentEvent={currentEvent}
             updateState={this.updateState}
             render={(callback) => (
               <CreateEvent

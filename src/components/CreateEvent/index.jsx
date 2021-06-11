@@ -3,26 +3,19 @@ import DropList from '../../common/DropList';
 import { lang, langData, dropList } from '../../constants';
 
 const CreateEvent = ({ selectedDate, currentEvent, callback }) => {
-  const [type, setType] = useState();
-  const [data, setData] = useState({});
-
-  const changeEventType = (typeIndex) => {
-    setType(typeIndex);
-    setData({ name: data.name, type: typeIndex, date: selectedDate });
-  };
+  const [data, setData] = useState({type: undefined});
 
   const rememberData = (val, name) => {
     setData({
       ...data,
       date: selectedDate,
-      type: type,
       [name]: val,
     });
   };
 
   useEffect(() => {
     callback(data);
-  }, [data, type]);
+  }, [data]);
 
   useEffect(() => {
     if (!currentEvent?.obj) {
@@ -50,11 +43,12 @@ const CreateEvent = ({ selectedDate, currentEvent, callback }) => {
         <DropList
           optNames={dropList.names}
           placeHolder={lang[langData.eventType]}
-          callback={(typeIndex) => changeEventType(typeIndex)}
+          defValue={currentEvent ? dropList.names[data.type] : false}
+          callback={(index) => rememberData(index, 'type')}
         />
       </div>
       <div className="event__cont">
-        {dropList.names[type] == lang[langData.holiday] && (
+        {dropList.names[data.type] == lang[langData.holiday] && (
           <>
             <div className="event__price">
               <label htmlFor="price">{lang[langData.money]}</label>
@@ -68,7 +62,7 @@ const CreateEvent = ({ selectedDate, currentEvent, callback }) => {
           </>
         )}
 
-        {dropList.names[type] == lang[langData.events] && (
+        {dropList.names[data.type] == lang[langData.events] && (
           <>
             <div className="event__go">
               <label htmlFor="go">{lang[langData.go]}</label>
@@ -87,22 +81,21 @@ const CreateEvent = ({ selectedDate, currentEvent, callback }) => {
                 id="time"
                 value={data.time || ''}
                 type="text"
-                name=""
                 onChange={(event) => rememberData(event.target.value, 'time')}
               />
             </div>
           </>
         )}
 
-        {dropList.names[type] == lang[langData.marks] && (
+        {dropList.names[data.type] == lang[langData.marks] && (
           <>
             <div className="event__marks">
               <label htmlFor="marks">{lang[langData.marks]}</label>
               <input
-                onChange={(event) => rememberData(event.target.value, 'marks')}
-                type="text"
-                name=""
                 id="marks"
+                value={data.marks || ''}
+                type="text"
+                onChange={(event) => rememberData(event.target.value, 'marks')}
               />
             </div>
           </>

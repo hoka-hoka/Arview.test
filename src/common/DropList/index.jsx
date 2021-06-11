@@ -3,6 +3,7 @@ import './DropList.scss';
 
 const DropList = ({
   optNames,
+  defValue,
   extClass,
   placeHolder,
   listActive,
@@ -14,6 +15,10 @@ const DropList = ({
     index: null,
   });
   const par = useRef();
+
+  useEffect(() => {
+    setCurOption({val: defValue || '', index: null});
+  }, [defValue]);
 
   useEffect(() => {
     if (!active) {

@@ -6,9 +6,9 @@ import './ModalWindow.scss';
 const ModalWindow = ({
   title,
   eventData,
-  changeDate,
   view,
   render,
+  currentEvent,
   updateState,
 }) => {
   const [newEventData, setNewEventData] = useState({});
@@ -18,7 +18,14 @@ const ModalWindow = ({
 
   const addEventData = () => {
     // setNewEventData((prevState) => ({ ...prevState }));
-    updateState({ update: true })({ eventData: [...eventData, newEventData] });
+    if (!currentEvent?.elem) {
+      updateState({ update: true })({ eventData: [...eventData, newEventData] });
+    } else {
+      const index = currentEvent.idnex;
+      const copyData = [...eventData];
+      copyData.splice(index+1, 1, newEventData);
+      updateState({ update: true })({ eventData: copyData });
+    }
   };
 
   // const enrichPerson = () => {
