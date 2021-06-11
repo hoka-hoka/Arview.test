@@ -1,30 +1,32 @@
 import React, { Component } from 'react';
-import Button from './Button';
-import Modal from './Modal';
-import styles from './template.scss';
+import ModalWindow from './ModalWindow';
+import CreateEvent from './CreateEvent';
+
+import { lang, langData, viewMode } from '../constants';
+
+import './template.scss';
 
 class Template extends Component {
   constructor(props) {
     super(props);
-    this.state = { amountClick: 0 };
+    this.state = { view: viewMode.main, eventType: '' };
   }
 
+  updateState = ({ update } = {}) => {
+    if (update) {
+      return (params) => this.setState(params);
+    }
+    return this.state;
+  };
+
   render() {
-    const { amountClick } = this.state;
     return (
-      <>
-        <div className={styles.template}>
-          <div className={styles.header}>
-            <div className={styles.top}>
-              <Button amountClick={amountClick} setData={this.state} />
-            </div>
-            <div className={styles.bottom}>
-              <Modal name="title" />
-              <Button />
-            </div>
-          </div>
-        </div>
-      </>
+      <div className="">
+        <ModalWindow
+          title={`${lang[langData.add]} ${lang[langData.event]}`}
+          render={() => <CreateEvent updateState={this.updateState} />}
+        />
+      </div>
     );
   }
 }

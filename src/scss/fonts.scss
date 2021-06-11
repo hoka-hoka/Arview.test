@@ -1,7 +1,27 @@
-// @font-face {
-//   font-weight: normal;
-//   font-style: normal;
-//   font-family: 'Fontello';
-//   src: url('../../assets/fonts/fontello-icons/fontello.woff2') format('woff2'),
-//     url('../../assets/fonts/fontello-icons/fontello.woff') format('woff');
-// }
+@font-face {
+  font-weight: normal;
+  font-family: 'Fontello';
+  font-style: normal;
+  src: url('../assets/fonts/fontello-icons/fontello-icons.woff2')
+      format('woff2'),
+    url('../assets/fonts/fontello-icons/fontello-icons.woff') format('woff');
+}
+
+@font-face {
+  font-weight: normal;
+  font-family: 'Montserrat';
+  font-style: normal;
+  src: url('../assets/fonts/montserrat-regular/montserrat-regular.woff2')
+      format('woff2'),
+    url('../assets/fonts/montserrat-regular/montserrat-regular.woff')
+      format('woff');
+}
+
+@font-face {
+  font-weight: bold;
+  font-family: 'Montserrat';
+  font-style: normal;
+  src: url('../assets/fonts/montserrat-bold/montserrat-bold.woff2')
+      format('woff2'),
+    url('../assets/fonts/montserrat-bold/montserrat-bold.woff') format('woff');
+}

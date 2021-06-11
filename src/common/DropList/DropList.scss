@@ -1,0 +1,87 @@
+.drop-list {
+  $dropList: &;
+  position: relative;
+  display: inline-block;
+  border: 1px solid $black-25;
+  border-radius: 4px;
+
+  @each $name in (hover focus-visible) {
+    &:#{$name} {
+      border-color: $black-50;
+      outline: none;
+    }
+  }
+
+  &_active {
+    #{$dropList}__btn:after {
+      content: '\f005';
+    }
+
+    border: {
+      color: $black-50;
+      radius: 4px 4px 0 0;
+    }
+  }
+
+  &__field {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 32px;
+    padding: 0 28px 0 14px;
+    color: $black-75;
+    font-family: $mainFont;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &::placeholder {
+    color: $black-25;
+  }
+
+  &__btn {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    background-color: transparent;
+    background-color: white;
+    transform: translateY(-50%);
+
+    &:after {
+      color: rgba(31, 32, 65, 0.5);
+      font-size: 14px;
+      font-family: $symFont;
+      content: '\f004';
+    }
+  }
+
+  &__panel {
+    position: absolute;
+    right: -1px;
+    left: -1px;
+    z-index: 3;
+    background-color: white;
+    border: 1px solid $black-50;
+    border-radius: 0 0 4px 4px;
+  }
+
+  &__item {
+    padding: 4px 0 4px 14px;
+    color: $black-75;
+    cursor: pointer;
+
+    &_focused {
+      background-color: $black-5;
+      outline: none;
+    }
+
+    &:hover {
+      background-color: $black-5;
+    }
+  }
+  $drop-list: &;
+}
