@@ -18,17 +18,17 @@ const setCopyPlugin = () => {
   const rezult = new CopyPlugin([
     {
       from: path.resolve(__dirname, 'src/assets/img'),
-      to: path.resolve(__dirname, 'dist/img'),
+      to: path.resolve(__dirname, 'docs/img'),
     },
     {
       from: path.resolve(__dirname, 'src/assets/fonts'),
-      to: path.resolve(__dirname, 'dist/fonts'),
+      to: path.resolve(__dirname, 'docs/fonts'),
     },
   ]);
   if (!devMode) {
     rezult.patterns.push({
       from: path.resolve(__dirname, 'dll/vendor.bundle.js'),
-      to: path.resolve(__dirname, 'dist/js'),
+      to: path.resolve(__dirname, 'docs/js'),
     });
   }
   return rezult;
@@ -48,7 +48,7 @@ if (!devMode) {
 }
 
 module.exports = {
-  outputDir: 'dist',
+  outputDir: 'docs',
   publicPath: process.env.NODE_ENV === 'production' ? '' : './', // Если используется многостраничный режим (pages), то не писать
   assetsDir: '',
   indexPath: 'index.html', // по умолчанию index.html
