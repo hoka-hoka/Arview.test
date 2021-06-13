@@ -17,67 +17,24 @@ const ModalWindow = ({
   const focusedElems = useRef([]);
 
   const addEventData = () => {
-    // setNewEventData((prevState) => ({ ...prevState }));
-    if (!currentEvent?.elem) {
-      updateState({ update: true })({ eventData: [...eventData, newEventData] });
-    } else {
-      const index = currentEvent.idnex;
-      const copyData = [...eventData];
-      copyData.splice(index+1, 1, newEventData);
-      updateState({ update: true })({ eventData: copyData });
-    }
+    updateState({ update: true })({ eventData: [...eventData, newEventData] });
   };
 
-  // const enrichPerson = () => {
-  //   const { firstName, lastName, id } = fieldData;
-  //   if (!id) {
-  //     return;
-  //   }
-  //   const data = {
-  //     id: id,
-  //     firstName,
-  //     lastName,
-  //     image: 'img/ava.png',
-  //   };
-  //   getData('persons', data).then((resp) => {
-  //     if (!resp?.success) {
-  //       updateState({ update: false }).notice = {
-  //         ...{
-  //           error: true,
-  //           message: lang[langData.fillingError],
-  //         },
-  //       };
-  //     } else {
-  //       updateState({ update: false }).notice = {
-  //         ...{
-  //           error: false,
-  //           message: lang[langData.update],
-  //         },
-  //       };
-  //     }
-  //     updateState({ update: true })({ bubbling: true });
-  //   });
-
-  //   const foundFieldIndex = persons.findIndex((field) => field.id == id);
-  //   if (~foundFieldIndex) {
-  //     const editField = persons[foundFieldIndex];
-  //     persons[foundFieldIndex] = { ...editField, firstName, lastName };
-  //   }
-  // };
+  const editEventData = () => {
+    const index = currentEvent.index;
+    const copyData = [...eventData];
+    copyData.splice(index, 1, newEventData);
+    updateState({ update: true })({ eventData: copyData });
+  }
 
   const saveEventData = () => {
     updateState({ update: true })({ bubbling: true });
-
-    switch (view) {
-      case viewMode.add:
-        addEventData();
-        break;
-      // case viewMode.edit:
-      //   enrichPerson();
-      //   break;
-      default:
-        break;
+    if (!currentEvent?.obj) {
+      addEventData();
+    } else {
+      editEventData();
     }
+    updateState({ update: true })({ bubbling: false });
   };
 
   const comeBack = () => {
