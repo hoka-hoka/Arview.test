@@ -21,7 +21,7 @@ const langData = {
   eventName: 4,
   eventType: 5,
   events: 6,
-  go: 7,
+  adddress: 7,
   time: 8,
   holiday: 9,
   money: 10,
@@ -40,4 +40,41 @@ const dropList = {
   names: ['Праздничные дни', 'Мероприятия', 'Пометки / Другое'],
 };
 
-export { lang, langData, viewMode, dropList };
+const events = [
+  {
+    id: 1,
+    name: 'holiday',
+    fields: [{
+      name: 'price',
+      text: lang[langData.money],
+      type: 'number',
+    }]
+  },
+  {
+    id: 2,
+    name: 'party',
+    fields: [
+      {
+        name: 'adddress',
+        text: lang[langData.adddress],
+        type: 'text',
+      }, {
+        name: 'time',
+        text: lang[langData.time],
+        type: 'text'
+      } 
+    ]
+  }, {
+    id: 3,
+    name: 'mark',
+    fields: [
+      {
+        name: 'marks',
+        text: lang[langData.marks],
+        type: 'text'
+      }
+    ]
+  }
+]
+
+export { lang, langData, viewMode, dropList, events };

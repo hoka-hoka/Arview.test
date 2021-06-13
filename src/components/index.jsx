@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Calendar from 'react-calendar';
 
 import ModalWindow from './ModalWindow';
-import CreateEvent from './CreateEvent';
+import EventControl from './EventControl';
 import Events from './Events';
 
 import { lang, langData, viewMode } from '../constants';
@@ -81,7 +81,7 @@ class Template extends Component {
             currentEvent={currentEvent}
             updateState={this.updateState}
             render={(callback) => (
-              <CreateEvent
+              <EventControl
                 selectedDate={selectedDate}
                 currentEvent={currentEvent}
                 callback={callback}
