@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DropList from '../../common/DropList';
-import { lang, langData, dropList, events } from '../../constants';
+import { lang, langData, dropList, eventList } from '../../constants';
 
 const EventControl = ({ selectedDate, currentEvent, callback }) => {
   const [data, setData] = useState({type: undefined});
@@ -49,7 +49,7 @@ const EventControl = ({ selectedDate, currentEvent, callback }) => {
       </div>
 
       <div className="control__cont">
-        {events[data.type]?.fields.map((field) => (
+        {eventList[data.type]?.fields.map((field) => (
           <div className="control__field" key={field.name}>
             <label htmlFor="control__lab">{field.text}</label> 
             <input

@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 
 import ModalWindow from './ModalWindow';
 import EventControl from './EventControl';
-import Events from './Events';
+import EventList from './EventList';
 
 import { lang, langData, viewMode } from '../constants';
 
@@ -59,7 +59,7 @@ class Template extends Component {
                 <Calendar onClickDay={this.showEvents} value={new Date()} />
               </div>
               <div className="widget__events">
-                <Events
+                <EventList
                   selectedDate={selectedDate}
                   eventData={eventData}
                   updateState={this.updateState}

@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useMemo } from 'react';
-import { lang, langData, dropList, viewMode } from '../../constants';
+import { lang, langData, dropList, viewMode, eventList } from '../../constants';
 
-const Events = ({ selectedDate, eventData, updateState }) => {
+const EventList = ({ selectedDate, eventData, updateState }) => {
   const [events, setEvents] = useState([]);
 
   const foundEvents = useMemo(() => {
@@ -52,28 +52,19 @@ const Events = ({ selectedDate, eventData, updateState }) => {
     <div className="events">
       {foundEvents.map((event, index) => (
         <Fragment key={index}>
-          {dropList.names[event.type] == lang[langData.holiday] && (
-            <>
-              <div className="events__cont">
-                <div className="events__name">{event.name}</div>
-                <div className="events__price">Бюджет: {event.price}</div>
-              </div>
-              {buttons(index)}
-            </>
-          )}
-
-          {dropList.names[event.type] == lang[langData.events] && (
-            <div className="events__cont">
-              <div className="events__name">{event.name}</div>
-              <div className="events__type">Адрес: {event.address}</div>
-              <div className="events__type">Время: {event.time}</div>
-              {buttons(index)}
-            </div>
-          )}
+          <div className="events__cont">
+            <div className="events__name">{event.name}</div>
+            {eventList[event.type].fields.map((field) => (
+              <Fragment key={field.name}>
+                {field.about && <div className="events__field">{`${field.about}: ${event[field.name]}`}</div>}
+              </Fragment>
+            ))}
+          </div>
+          {buttons(index)}
         </Fragment>
       ))}
     </div>
   );
 };
 
-export default Events;
+export default EventList;

@@ -11,6 +11,9 @@ const lang = [
   'Праздничные дни',
   'Сумма денег',
   'Пометки / Другое',
+  'Бюджет',
+  'Адрес',
+  'Время',
 ];
 
 const langData = {
@@ -22,10 +25,13 @@ const langData = {
   eventType: 5,
   events: 6,
   adddress: 7,
-  time: 8,
+  whatTime: 8,
   holiday: 9,
   money: 10,
   marks: 11,
+  budget: 12,
+  address: 13,
+  time: 14,
 };
 
 const viewMode = {
@@ -40,7 +46,7 @@ const dropList = {
   names: ['Праздничные дни', 'Мероприятия', 'Пометки / Другое'],
 };
 
-const events = [
+const eventList = [
   {
     id: 1,
     name: 'holiday',
@@ -48,6 +54,7 @@ const events = [
       name: 'price',
       text: lang[langData.money],
       type: 'number',
+      about: lang[langData.budget],
     }]
   },
   {
@@ -58,10 +65,12 @@ const events = [
         name: 'adddress',
         text: lang[langData.adddress],
         type: 'text',
+        about: lang[langData.address],
       }, {
         name: 'time',
-        text: lang[langData.time],
-        type: 'text'
+        text: lang[langData.whatTime],
+        type: 'text',
+        about: lang[langData.time],
       } 
     ]
   }, {
@@ -77,4 +86,4 @@ const events = [
   }
 ]
 
-export { lang, langData, viewMode, dropList, events };
+export { lang, langData, viewMode, dropList, eventList };
