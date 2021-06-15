@@ -1,6 +1,18 @@
 .widget {
+  
   &__cont {
     display: flex;
+    flex-wrap: wrap;
+  }
+  
+  &__calendar {
+    text-align: center;
+  }
+  
+  &__add {
+    margin-top: 20px;
+    font-family: $mainFont;
+    font-size: $mainFontSize;
   }
 
   &__events {

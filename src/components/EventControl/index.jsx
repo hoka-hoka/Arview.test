@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import DropList from '../../common/DropList';
 import { lang, langData, dropList, eventList } from '../../constants';
+import DropList from '../../common/DropList';
+import './EventControl.scss';
 
 const EventControl = ({ selectedDate, currentEvent, callback }) => {
   const [data, setData] = useState({type: undefined});
@@ -30,9 +31,10 @@ const EventControl = ({ selectedDate, currentEvent, callback }) => {
   return (
     <div className="control">
       <div className="control__name">
-        <label htmlFor="name">{lang[langData.eventName]}</label>
+        <label className="control__lab" htmlFor="name">{lang[langData.eventName]}</label>
         <input
           className="control__field"
+          placeholder="Name"
           id="name"
           type="text"
           value={data.name || ''}
@@ -40,6 +42,7 @@ const EventControl = ({ selectedDate, currentEvent, callback }) => {
         />
       </div>
       <div className="control__type">
+        <label className="control__lab" htmlFor="name">{lang[langData.eventType]}</label>
         <DropList
           optNames={dropList.names}
           placeHolder={lang[langData.eventType]}
@@ -48,11 +51,12 @@ const EventControl = ({ selectedDate, currentEvent, callback }) => {
         />
       </div>
 
-      <div className="control__cont">
+      <ul className="control__cont">
         {eventList[data.type]?.fields.map((field) => (
-          <div className="control__field" key={field.name}>
-            <label htmlFor="control__lab">{field.text}</label> 
+          <li className="control__item" key={field.name}>
+            <label className="control__lab" htmlFor="control__lab">{field.text}</label> 
             <input
+              className="control__field"
               id={field.name}
               value={data[field.name] || ''}
               type={field.type}
@@ -60,10 +64,10 @@ const EventControl = ({ selectedDate, currentEvent, callback }) => {
                 rememberData(event.target.value, field.name)
               }
             />
-          </div>
+          </li>
         ))}
 
-      </div>
+      </ul>
     </div>
   );
 };

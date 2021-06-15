@@ -60,6 +60,9 @@ class Template extends Component {
             <div className="widget__cont">
               <div className="widget__calendar">
                 <Calendar onClickDay={this.showEvents} value={new Date()} />
+                <button className="widget__add" onClick={this.changeView} type="button">
+                  {lang[langData.add]}
+                </button>
               </div>
               <div className="widget__events">
                 <EventList
@@ -68,11 +71,10 @@ class Template extends Component {
                   updateState={this.updateState}
                 />
               </div>
+              
             </div>
 
-            <button onClick={this.changeView} type="button">
-              {lang[langData.add]}
-            </button>
+            
           </>
         )}
 

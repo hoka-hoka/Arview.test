@@ -1,0 +1,35 @@
+.control {
+  &__name {
+    color: $black;
+    margin-bottom: 10px;
+  }
+
+  &__type {
+    margin-bottom: 10px;
+  }
+
+  &__item {
+    margin-bottom: 10px;
+  }
+
+  &__lab {
+    color: $black;
+    display: block;
+  }
+
+  &__field {
+    border-image-source: url('../../assets/img/name.svg');
+    border-image-width: 3px;
+    border-image-slice: 4;
+    border-image-repeat: round;
+    outline: none;
+    min-width: 302px;
+    min-height: 42px;
+    font-family: $mainFont;
+    font-size: rem(14);
+    padding: 0 10px;
+
+    &::placeholder {
+    }
+  }
+}

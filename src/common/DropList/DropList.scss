@@ -2,8 +2,6 @@
   $dropList: &;
   position: relative;
   display: inline-block;
-  border: 1px solid $black-25;
-  border-radius: 4px;
 
   @each $name in (hover focus-visible) {
     &:#{$name} {
@@ -24,13 +22,16 @@
   }
 
   &__field {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    height: 32px;
-    padding: 0 28px 0 14px;
-    color: $black-75;
+    border-image-source: url('../../assets/img/name.svg');
+    border-image-width: 4px;
+    border-image-slice: 4;
+    border-image-repeat: round;
+    outline: none;
+    min-width: 302px;
+    min-height: 42px;
     font-family: $mainFont;
+    font-size: rem(14);
+    padding: 0 10px;
     background-color: transparent;
     cursor: pointer;
   }
@@ -42,7 +43,7 @@
   &__btn {
     position: absolute;
     top: 50%;
-    right: 0px;
+    right: 8px;
     bottom: 0;
     display: flex;
     align-items: center;
@@ -52,7 +53,8 @@
     transform: translateY(-50%);
 
     &:after {
-      color: rgba(31, 32, 65, 0.5);
+      color: $black;
+      font-weight: bold;
       font-size: 14px;
       font-family: $symFont;
       content: '\f004';
@@ -65,8 +67,6 @@
     left: -1px;
     z-index: 3;
     background-color: white;
-    border: 1px solid $black-50;
-    border-radius: 0 0 4px 4px;
   }
 
   &__item {
