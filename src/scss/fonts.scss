@@ -25,3 +25,12 @@
       format('woff2'),
     url('../assets/fonts/montserrat-bold/montserrat-bold.woff') format('woff');
 }
+
+@font-face {
+  font-weight: normal;
+  font-family: 'Pangolin';
+  font-style: normal;
+  src: url('../assets/fonts/pangolin/pangolin.woff2')
+      format('woff2'),
+    url('../assets/fonts/pangolin/pangolin.woff') format('woff');
+}

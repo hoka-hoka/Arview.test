@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Calendar from 'react-calendar';
 
+import Sprite from '../common/Sprite';
+
 import ModalWindow from './ModalWindow';
 import EventControl from './EventControl';
 import EventList from './EventList';
 
 import { lang, langData, viewMode } from '../constants';
 
+import '../scss/normalize.scss';
 import './template.scss';
 import 'react-calendar/dist/Calendar.css';
 
@@ -89,6 +92,7 @@ class Template extends Component {
             )}
           />
         )}
+        <Sprite />
       </div>
     );
   }

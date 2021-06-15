@@ -1,5 +1,7 @@
 import React, { useState, Fragment, useMemo } from 'react';
-import { lang, langData, dropList, viewMode, eventList } from '../../constants';
+import { viewMode, eventList } from '../../constants';
+
+import './EventList.scss';
 
 const EventList = ({ selectedDate, eventData, updateState }) => {
   const [events, setEvents] = useState([]);
@@ -30,39 +32,43 @@ const EventList = ({ selectedDate, eventData, updateState }) => {
   };
 
   const buttons = (index) => (
-    <>
+    <div className="events__btns">
       <button
         className="events__edit"
         type="button"
         onClick={() => addEvent(index)}
       >
-        Edit
+        <svg viewBox="0 0 512 512">
+          <use xlinkHref="#pencil" />
+        </svg>
       </button>
       <button
         className="events__del"
         type="button"
         onClick={() => delEvent(index)}
       >
-        Del
+        <svg viewBox="0 0 512 512">
+          <use xlinkHref="#basket" />
+        </svg>
       </button>
-    </>
+    </div>
   );
 
   return (
     <div className="events">
+      <ul className="events__cont">
       {foundEvents.map((event, index) => (
-        <Fragment key={index}>
-          <div className="events__cont">
-            <div className="events__name">{event.name}</div>
-            {eventList[event.type].fields.map((field) => (
-              <Fragment key={field.name}>
-                {field.about && <div className="events__field">{`${field.about}: ${event[field.name]}`}</div>}
-              </Fragment>
-            ))}
-          </div>
+        <li className="events__item" key={index}>
+          <div className="events__name">{event.name}</div>
           {buttons(index)}
-        </Fragment>
-      ))}
+          {eventList[event.type].fields.map((field) => (
+            <Fragment key={field.name}>
+              {field.about && <div className="events__field">{`${field.about}: ${event[field.name]}`}</div>}
+            </Fragment>
+          ))}
+        </li>
+        ))}
+      </ul>
     </div>
   );
 };
