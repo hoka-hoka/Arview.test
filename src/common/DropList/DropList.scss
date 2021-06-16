@@ -2,6 +2,13 @@
   $dropList: &;
   position: relative;
   display: inline-block;
+  border-style: solid;
+  border-right-width: 0;
+  border-left-width: 0;
+  border-image-source: url('../../assets/img/name-default.svg');
+  border-image-slice: 2;
+  border-image-width: 2px;
+  border-image-repeat: round;
 
   @each $name in (hover focus-visible) {
     &:#{$name} {
@@ -10,34 +17,35 @@
     }
   }
 
-  &_active {
-    #{$dropList}__btn:after {
-      content: '\f005';
-    }
-
-    border: {
-      color: $black-50;
-      radius: 4px 4px 0 0;
-    }
-  }
-
-  &__field {
+  &:focus,
+  &:hover {
     border-image-source: url('../../assets/img/name.svg');
-    border-image-width: 4px;
-    border-image-slice: 4;
-    border-image-repeat: round;
-    outline: none;
-    min-width: 302px;
-    min-height: 42px;
-    font-family: $mainFont;
-    font-size: rem(14);
-    padding: 0 10px;
-    background-color: transparent;
-    cursor: pointer;
+    border-image-slice: 3;
   }
 
   &::placeholder {
     color: $black-25;
+  }
+
+  &_active {
+    border-image-source: url('../../assets/img/name.svg');
+    border-image-slice: 3;
+
+    #{$dropList}__btn:after {
+      content: '\f005';
+    }
+  }
+
+  &__field {
+    min-width: 302px;
+    min-height: 42px;
+    padding: 0 10px;
+    font-size: rem(14);
+    font-family: $mainFont;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
   }
 
   &__btn {
@@ -63,10 +71,18 @@
 
   &__panel {
     position: absolute;
-    right: -1px;
-    left: -1px;
+    right: 0;
+    left: 0;
     z-index: 3;
+    margin-top: 4px;
     background-color: white;
+    border-style: solid;
+    border-right-width: 0;
+    border-left-width: 0;
+    border-image-source: url('../../assets/img/name.svg');
+    border-image-slice: 3;
+    border-image-width: 0 2px 2px;
+    border-image-repeat: round;
   }
 
   &__item {
@@ -83,5 +99,4 @@
       background-color: $black-5;
     }
   }
-  $drop-list: &;
 }

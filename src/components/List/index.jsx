@@ -1,11 +1,9 @@
-import React, { useState, Fragment, useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { viewMode, eventList } from '../../constants';
 
-import './EventList.scss';
+import './List.scss';
 
-const EventList = ({ selectedDate, eventData, updateState }) => {
-  const [events, setEvents] = useState([]);
-
+const List = ({ selectedDate, eventData, updateState }) => {
   const foundEvents = useMemo(() => {
     const found = eventData.filter((item) => {
       const isDate = item.date.getDate() == selectedDate.getDate();
@@ -57,20 +55,24 @@ const EventList = ({ selectedDate, eventData, updateState }) => {
   return (
     <div className="events">
       <ul className="events__cont">
-      {foundEvents.map((event, index) => (
-        <li className="events__item" key={index}>
-          <div className="events__name">{event.name}</div>
-          {buttons(index)}
-          {eventList[event.type].fields.map((field) => (
-            <Fragment key={field.name}>
-              {field.about && <div className="events__field">{`${field.about}: ${event[field.name]}`}</div>}
-            </Fragment>
-          ))}
-        </li>
+        {foundEvents.map((event, index) => (
+          <li className="events__item" key={index}>
+            <div className="events__name">{event.name}</div>
+            {buttons(index)}
+            {eventList[event.type].fields.map((field) => (
+              <Fragment key={field.name}>
+                {field.about && (
+                  <div className="events__field">
+                    {`${field.about}: ${event[field.name]}`}
+                  </div>
+                )}
+              </Fragment>
+            ))}
+          </li>
         ))}
       </ul>
     </div>
   );
 };
 
-export default EventList;
+export default List;

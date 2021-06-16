@@ -1,0 +1,31 @@
+.field {
+  &__lab {
+    display: block;
+    margin-bottom: 4px;
+    color: $black;
+  }
+
+  &__inp {
+    min-width: 302px;
+    min-height: 42px;
+    padding: 0 10px;
+    font-size: rem(14);
+    font-family: $mainFont;
+    border-image-source: url('../../assets/img/name-default.svg');
+    border-image-slice: 2;
+    border-image-width: 2px;
+    border-image-repeat: round;
+    outline: none;
+
+    &:focus,
+    &:hover {
+      border-image-source: url('../../assets/img/name.svg');
+      border-image-slice: 3;
+    }
+  }
+
+  &__img {
+    width: 42px;
+    min-width: 300px;
+  }
+}

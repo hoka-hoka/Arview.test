@@ -6,7 +6,6 @@ import './ModalWindow.scss';
 const ModalWindow = ({
   title,
   eventData,
-  view,
   render,
   currentEvent,
   updateState,
@@ -25,7 +24,7 @@ const ModalWindow = ({
     const copyData = [...eventData];
     copyData.splice(index, 1, newEventData);
     updateState({ update: true })({ eventData: copyData });
-  }
+  };
 
   const saveEventData = () => {
     updateState({ update: true })({ bubbling: true });
@@ -111,7 +110,7 @@ const ModalWindow = ({
           <div className="modal__menu">
             {render(setNewEventData)}
 
-            <div className="modal__btn">
+            <div className="modal__btns">
               <button className="modal__back" type="button" onClick={comeBack}>
                 {lang[langData.cancel]}
               </button>
@@ -134,7 +133,6 @@ const ModalWindow = ({
 
 ModalWindow.defaultProps = {
   title: '',
-  view: viewMode.load,
   persons: [],
   render: (f) => f,
   updateState: (f) => f,

@@ -3,6 +3,7 @@ import './DropList.scss';
 
 const DropList = ({
   optNames,
+  labFor,
   defValue,
   extClass,
   placeHolder,
@@ -17,13 +18,14 @@ const DropList = ({
   const par = useRef();
 
   useEffect(() => {
-    setCurOption({val: defValue || '', index: null});
+    setCurOption({ val: defValue || '', index: null });
   }, [defValue]);
 
   useEffect(() => {
     if (!active) {
-      callback(curOption.index);
+      par.current.focus();
     }
+    callback(active, curOption.index);
   }, [active]);
 
   const handlerBlur = () => {
@@ -78,9 +80,9 @@ const DropList = ({
     if (!el || curOption.index != i) {
       return;
     }
-    // console.log(document.activeElement);
-
-    // el.focus();
+    setTimeout(() => {
+      el.focus();
+    });
   };
 
   return (
@@ -97,6 +99,7 @@ const DropList = ({
       aria-haspopup="true"
     >
       <input
+        id={labFor}
         className="drop-list__field"
         type="text"
         onClick={handlerClick}
@@ -125,7 +128,7 @@ const DropList = ({
               onKeyPress={(event) => selectOption(event, i)}
               onFocus={(event) => changeActiveOption(event, i)}
               key={i}
-              tabIndex={-1}
+              tabIndex="0"
               role="button"
             >
               {item}
@@ -139,6 +142,7 @@ const DropList = ({
 
 DropList.defaultProps = {
   callback: (f) => f,
+  labFor: '',
   optNames: [],
   placeHolder: '',
   listActive: false,

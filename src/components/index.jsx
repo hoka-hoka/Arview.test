@@ -4,8 +4,8 @@ import Calendar from 'react-calendar';
 import Sprite from '../common/Sprite';
 
 import ModalWindow from './ModalWindow';
-import EventControl from './EventControl';
-import EventList from './EventList';
+import Control from './Control';
+import List from './List';
 
 import { lang, langData, viewMode } from '../constants';
 
@@ -60,21 +60,22 @@ class Template extends Component {
             <div className="widget__cont">
               <div className="widget__calendar">
                 <Calendar onClickDay={this.showEvents} value={new Date()} />
-                <button className="widget__add" onClick={this.changeView} type="button">
+                <button
+                  className="widget__add"
+                  onClick={this.changeView}
+                  type="button"
+                >
                   {lang[langData.add]}
                 </button>
               </div>
               <div className="widget__events">
-                <EventList
+                <List
                   selectedDate={selectedDate}
                   eventData={eventData}
                   updateState={this.updateState}
                 />
               </div>
-              
             </div>
-
-            
           </>
         )}
 
@@ -82,11 +83,10 @@ class Template extends Component {
           <ModalWindow
             title={`${lang[langData.add]} ${lang[langData.event]}`}
             eventData={eventData}
-            view={view}
             currentEvent={currentEvent}
             updateState={this.updateState}
             render={(callback) => (
-              <EventControl
+              <Control
                 selectedDate={selectedDate}
                 currentEvent={currentEvent}
                 callback={callback}
