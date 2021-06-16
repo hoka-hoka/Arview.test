@@ -11,7 +11,8 @@ import { lang, langData, viewMode } from '../constants';
 
 import '../scss/normalize.scss';
 import './template.scss';
-import 'react-calendar/dist/Calendar.css';
+import './Calendar/Calendar.scss';
+// import 'react-calendar/dist/Calendar.css';
 
 class Template extends Component {
   constructor(props) {
@@ -59,7 +60,11 @@ class Template extends Component {
           <>
             <div className="widget__cont">
               <div className="widget__calendar">
-                <Calendar onClickDay={this.showEvents} value={new Date()} />
+                <Calendar
+                  onClickDay={this.showEvents}
+                  value={new Date()}
+                  locale="ru-RU"
+                />
                 <button
                   className="widget__add"
                   onClick={this.changeView}
@@ -85,11 +90,12 @@ class Template extends Component {
             eventData={eventData}
             currentEvent={currentEvent}
             updateState={this.updateState}
-            render={(callback) => (
+            render={(callback, errors) => (
               <Control
                 selectedDate={selectedDate}
                 currentEvent={currentEvent}
                 callback={callback}
+                errors={errors}
               />
             )}
           />

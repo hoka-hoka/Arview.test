@@ -4,7 +4,7 @@ import DropList from '../../common/DropList';
 import Field from '../Field';
 import './Control.scss';
 
-const Control = ({ selectedDate, currentEvent, callback }) => {
+const Control = ({ selectedDate, currentEvent, callback, errors }) => {
   const [data, setData] = useState({ type: undefined });
 
   const rememberData = (val, name) => {
@@ -35,6 +35,7 @@ const Control = ({ selectedDate, currentEvent, callback }) => {
         <Field
           labFor="name"
           labName={lang[langData.eventName]}
+          defVal={currentEvent?.obj ? currentEvent.obj.name : ''}
           plHolder="Name"
           callback={(val) => rememberData(val, 'name')}
         />
@@ -47,21 +48,26 @@ const Control = ({ selectedDate, currentEvent, callback }) => {
           labFor="type"
           optNames={dropList.names}
           placeHolder={lang[langData.eventType]}
-          defValue={currentEvent ? dropList.names[data.type] : false}
+          defValue={currentEvent?.obj ? dropList.names[data.type] : ''}
           callback={(_, index) => rememberData(index, 'type')}
         />
       </div>
 
       <ul className="control__cont">
         {eventList[data.type]?.fields.map((field) => (
-          <li className="control__item" key={field.name}>
+          <li className="control__item" key={field.id}>
             <Field
               labFor={field.name}
               labName={field.text}
               typeName={field.type}
+              defVal={currentEvent?.obj ? currentEvent.obj[field.name] : ''}
               plHolder={`${field.name[0].toUpperCase()}${field.name.substring(
                 1,
               )}`}
+              isError={
+                errors.length && errors.some((error) => error.id == field.id)
+              }
+              errorText={field.errorText}
               callback={(val) => rememberData(val, field.name)}
             />
           </li>
@@ -69,6 +75,13 @@ const Control = ({ selectedDate, currentEvent, callback }) => {
       </ul>
     </div>
   );
+};
+
+Control.defaultProps = {
+  selectedDate: new Date(),
+  currentEvent: {},
+  callback: (f) => f,
+  errors: false,
 };
 
 export default Control;

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { lang, langData, viewMode } from '../../constants';
+import { lang, langData, viewMode, eventList } from '../../constants';
 import { interElems, focusArea } from './constants';
 import './ModalWindow.scss';
 
@@ -11,6 +11,7 @@ const ModalWindow = ({
   updateState,
 }) => {
   const [newEventData, setNewEventData] = useState({});
+  const [errors, setErrors] = useState([]);
 
   const modal = useRef();
   const focusedElems = useRef([]);
@@ -20,13 +21,29 @@ const ModalWindow = ({
   };
 
   const editEventData = () => {
-    const index = currentEvent.index;
+    const { index } = currentEvent;
     const copyData = [...eventData];
     copyData.splice(index, 1, newEventData);
     updateState({ update: true })({ eventData: copyData });
   };
 
+  const validationCheck = () => {
+    const { type } = newEventData;
+    const errorMap = eventList[type].fields.filter(
+      (field) => !newEventData[field.name],
+    );
+    if (errorMap) {
+      setErrors(errorMap);
+      return false;
+    }
+    return true;
+  };
+
   const saveEventData = () => {
+    const isErrors = validationCheck();
+    if (isErrors) {
+      return;
+    }
     updateState({ update: true })({ bubbling: true });
     if (!currentEvent?.obj) {
       addEventData();
@@ -108,7 +125,7 @@ const ModalWindow = ({
             {title}
           </h2>
           <div className="modal__menu">
-            {render(setNewEventData)}
+            {render(setNewEventData, errors)}
 
             <div className="modal__btns">
               <button className="modal__back" type="button" onClick={comeBack}>

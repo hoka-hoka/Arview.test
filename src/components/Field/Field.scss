@@ -1,8 +1,18 @@
 .field {
+  position: relative;
+
   &__lab {
     display: block;
     margin-bottom: 4px;
     color: $black;
+  }
+
+  &__error {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    color: $red;
+    font-size: rem(14);
   }
 
   &__inp {
@@ -21,6 +31,10 @@
     &:hover {
       border-image-source: url('../../assets/img/name.svg');
       border-image-slice: 3;
+    }
+
+    &_error {
+      background-color: $error;
     }
   }
 
